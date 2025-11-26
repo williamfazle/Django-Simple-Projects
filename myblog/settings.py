@@ -1,35 +1,21 @@
-# myblog/settings.py
-"""
-Django settings for myblog project.
-Copy this whole file over your existing settings.py (replace).
-Designed for local development (DEBUG=True). Before production:
- - set DEBUG=False
- - provide a secure DJANGO_SECRET_KEY in environment
- - set ALLOWED_HOSTS appropriately
-"""
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
+# Load .env file
 load_dotenv()
 
-from pathlib import Path
-# ---------------------------
-# Basic paths & secrets
-# ---------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Get secret from env if set, otherwise use a dev fallback (DO NOT use dev fallback in production)
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+# SECRET_KEY from .env
+SECRET_KEY = os.getenv("SECRET_KEY")
 
+# DEBUG from .env
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
+# ALLOWED_HOSTS from .env
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
-
-# Turn this False when deploying for real
-DEBUG = True
-
-# Keep this for local dev; change when deploying to PythonAnywhere / other host
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # ---------------------------
 # Installed apps
