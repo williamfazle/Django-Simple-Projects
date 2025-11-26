@@ -7,17 +7,23 @@ Designed for local development (DEBUG=True). Before production:
  - provide a secure DJANGO_SECRET_KEY in environment
  - set ALLOWED_HOSTS appropriately
 """
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from pathlib import Path
-import os
-
 # ---------------------------
 # Basic paths & secrets
 # ---------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Get secret from env if set, otherwise use a dev fallback (DO NOT use dev fallback in production)
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-secret-key-change-this')
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
+
+
+
 
 # Turn this False when deploying for real
 DEBUG = True
